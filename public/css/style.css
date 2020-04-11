@@ -1,3 +1,24 @@
 .nav-wrapper {
     padding: 0 20px;
 }
+
+.course-price {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.course div {
+    margin-bottom: 10px;
+}
+
+.course img {
+    max-height: 300px;
+}
+
+img {
+    max-width: 100%;
+}
+
+.mb-3 {
+    margin-bottom: 15px;
+}

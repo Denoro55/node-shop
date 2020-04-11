@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Angular 9",
+    "price": "13500",
+    "img": "https://cdn.auth0.com/blog/logos/angular.png",
+    "id": "81be219e-d520-466a-9724-4858eb13dfe4"
+  },
+  {
+    "title": "Vue.js 2",
+    "price": "15000",
+    "img": "https://media.proglib.io/wp-uploads/2018/07/1_qnI8K0Udjw4lciWDED4HGw.png",
+    "id": "94938372-48ec-4b15-8061-d3696f4c6fcc"
+  },
+  {
+    "title": "React",
+    "price": "15500",
+    "img": "https://reactjs.org/logo-og.png",
+    "id": "ed6ee3a7-bf5e-491d-a093-a79ac3feff31"
+  }
+]

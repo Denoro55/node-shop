@@ -3,7 +3,6 @@ const path = require('path');
 const exphbs = require('express-handlebars');
 const homeRoutes = require('./routes/home');
 const courseRoutes = require('./routes/courses');
-const addRoutes = require('./routes/add');
 
 const app = express();
 
@@ -24,7 +23,6 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 app.use('/', homeRoutes);
 app.use('/courses', courseRoutes);
-app.use('/add', addRoutes);
 
 app.use((req, res, next) => {
     console.log('middleware');

@@ -1,0 +1,24 @@
+extends ./layouts/index
+
+block content
+    .container
+        h3 Курсы
+
+        if (courses.length)
+            .row
+                each course in courses
+                    .col.s12.m4
+                        .card
+                            .card-image
+                                img(src=`${course.img}`, alt='')
+                            .card-content
+                                p.card-title #{course.title}
+                                p.price #{course.price}
+                            .card-action
+                                a(href=`/courses/${course.id}`) Открыть курс
+                                a(href=`/courses/${course.id}/edit/?allow=true`) Редактировать
+                                form.mt-2(action='/card/add', method='POST')
+                                    input(type='hidden', name='id', value=course.id)
+                                    button.btn.btn-success(type='submit') Купить
+        else
+            p Курсов пока нет

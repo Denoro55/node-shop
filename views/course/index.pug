@@ -1,0 +1,15 @@
+extends ../layouts/index
+
+block content
+    .container
+        h3 Страница курса
+        .mb-3
+            a(href='/courses') Назад
+        .course
+            .course__title
+                | Курс #{course.title}
+            .course__price
+                | Стомость:
+                span.price #{course.price}
+            .course__image
+                img(src=course.img, alt='')

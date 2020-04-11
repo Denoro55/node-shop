@@ -1,7 +1,7 @@
 [
   {
-    "title": "Angular 9",
-    "price": "13500",
+    "title": "Angular 8",
+    "price": "16600",
     "img": "https://cdn.auth0.com/blog/logos/angular.png",
     "id": "81be219e-d520-466a-9724-4858eb13dfe4"
   },
@@ -13,8 +13,14 @@
   },
   {
     "title": "React",
-    "price": "15500",
+    "price": "20000",
     "img": "https://reactjs.org/logo-og.png",
     "id": "ed6ee3a7-bf5e-491d-a093-a79ac3feff31"
+  },
+  {
+    "title": "de",
+    "price": "de",
+    "img": "de",
+    "id": "175a2cc1-0646-4691-b6cb-6e4a68e2648d"
   }
 ]

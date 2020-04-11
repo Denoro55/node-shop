@@ -39,6 +39,7 @@ router.get('/:id/edit', async (req, res) => {
     if (!req.query.allow) {
         return res.redirect('/courses');
     }
+
     const course = await Course.getById(req.params.id);
 
     res.render('course/edit', {

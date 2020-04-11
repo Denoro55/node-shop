@@ -1,0 +1,27 @@
+extends ./layouts/index
+
+block content
+    .container
+        h1 Корзина
+        if (courses.length)
+            #card
+                table
+                    thead
+                        tr
+                            th Название
+                            th Количество
+                            th Действия
+                    tbody
+                        each course in courses
+                            tr
+                                td #{course.title}
+                                td #{course.count}
+                                td
+                                    .btn.btn-primary.js-remove(data-id=course.id) Удалить
+                br
+                p
+                    span
+                        | Сумма:
+                        strong.price #{totalPrice}
+        else
+            p В корзине пока пусто

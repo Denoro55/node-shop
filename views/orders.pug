@@ -1,0 +1,22 @@
+extends ./layouts/index
+
+block content
+    .container
+        h1 #{title}
+        if (orders.length)
+            each i in orders
+                .row
+                    .col.s6.offset-s3
+                        .card.horizontal
+                            .card-stacked
+                                .card-content
+                                    .card-title Заказ №#{i._id}
+                                    p.date #{i.date.toLocaleString()}
+                                    p <em>#{i.user.name} (#{i.user.userId.email})</em>
+                                    ol
+                                        each course in i.courses
+                                            li #{course.course.title} (#{course.count})
+                                    p Цена:&nbsp;
+                                        span.price #{i.totalPrice}
+        else
+            p Заказов пока нет

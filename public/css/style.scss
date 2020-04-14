@@ -1,0 +1,46 @@
+.wrapper {
+    padding-bottom: 40px;
+}
+
+.nav-wrapper {
+    padding: 0 20px;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.course div {
+    margin-bottom: 10px;
+}
+
+.course img {
+    max-height: 300px;
+}
+
+img {
+    max-width: 100%;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-y-center {
+    align-items: center;
+}
+
+.flex-x-justify-between {
+    justify-content: space-between;
+}
+
+@for $i from 1 through 12 {
+    .mt-#{$i} {
+        margin-top: $i * 5px;
+    }
+
+    .mb-#{$i} {
+        margin-bottom: $i * 5px;
+    }
+}

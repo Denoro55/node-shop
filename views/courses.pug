@@ -17,7 +17,7 @@ block content
                             .card-action
                                 a(href=`/courses/${course.id}`) Открыть курс
                                 a(href=`/courses/${course.id}/edit/?allow=true`) Редактировать
-                                form.mt-2(action='/card/add', method='POST')
+                                form.mt-2(action='/cart/add', method='POST')
                                     input(type='hidden', name='id', value=course.id)
                                     button.btn.btn-success(type='submit') Купить
         else

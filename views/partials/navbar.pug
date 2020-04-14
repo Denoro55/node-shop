@@ -3,7 +3,12 @@ nav
         a.brand-logo(href='/') Courses App
         ul#nav-mobile.right.hide-on-med-and-down
             -
-                var items = [{name: 'Главная', link: '/'}, {name: 'Курсы', link: '/courses'}, {name: 'Добавить курс', link: '/courses/add'}, {name: 'Корзина', link: '/card'}]
+                var items = [
+                {name: 'Главная', link: '/', id: 'index'},
+                {name: 'Курсы', link: '/courses', id: 'courses'},
+                {name: 'Добавить курс', link: '/courses/add', id: 'add-course'},
+                {name: 'Корзина', link: '/cart', id: 'cart'},
+                {name: 'Заказы', link: '/orders', id: 'orders'}]
             each i in items
-                li
+                li(class=i.id===name?'active':null)
                     a(href=`${i.link}`) #{i.name}

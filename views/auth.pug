@@ -1,0 +1,53 @@
+extends ./layouts/index
+
+block content
+    .container
+        .auth
+            .row
+                .col.s12
+                    ul.tabs
+                        li.tab.col.s3.offset-s3
+                            a(href='#login') Вход
+                        li.tab.col.s3
+                            a.active(href='#register') Регистрация
+                if (error.length)
+                    .col.s12.mt-4
+                        .card-panel.red.white-text #{error}
+                #login.col.s12
+                    h3 Вход
+                    form.col.s12(action='/auth/login', method='post')
+                        input(type="hidden" name="_csrf" value=csrf)
+                        .row
+                            .input-field.col.s6
+                                input#email.validate(required='', name='email', type='text')
+                                label(for='email') Email
+                                span.helper-text(data-error='Введите email')
+                            .input-field.col.s6
+                                input#password.validate(required='', name='password', type='password')
+                                label(for='password') Пароль
+                                span.helper-text(data-error='Введите пароль')
+                        .row
+                            button.btn.btn-primary(type='submit') Войти
+                #register.col.s12
+                    h3 Регистрация
+                    form.col.s12(action='/auth/register', method='post')
+                        input(type="hidden" name="_csrf" value=csrf)
+                        .row
+                            .input-field.col.s6
+                                input#r_name.validate(required='', name='name', type='text')
+                                label(for='r_name') Имя
+                                span.helper-text(data-error='Введите имя')
+                            .input-field.col.s6
+                                input#r_email.validate(required='', name='email', type='text')
+                                label(for='r_email') email
+                                span.helper-text(data-error='Введите email')
+                            .input-field.col.s6
+                                input#r_password.validate(required='', name='password', type='password')
+                                label(for='r_password') Пароль
+                                span.helper-text(data-error='Введите пароль')
+                            .input-field.col.s6
+                                input#r2_password.validate(required='', name='repeat', type='password')
+                                label(for='r2_password') Повторный пароль
+                                span.helper-text(data-error='Повторите пароль')
+                        .row
+                            button.btn.btn-primary(type='submit') Войти

@@ -17,7 +17,7 @@ block content
                                 td #{course.title}
                                 td #{course.count}
                                 td
-                                    .btn.btn-primary.js-remove(data-id=course.id) Удалить
+                                    .btn.btn-primary.js-remove(data-id=course.id data-csrf=csrf) Удалить
                 br
                 p
                     span
@@ -27,4 +27,5 @@ block content
             p В корзине пока пусто
 
         form(action="/orders/make" method="POST").mt-6
+            input(type="hidden" name="_csrf" value=csrf)
             button.btn.btn-primary(type="submit") Сделать заказ

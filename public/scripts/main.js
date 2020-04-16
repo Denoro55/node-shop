@@ -29,8 +29,16 @@ if ($card) {
     $card.addEventListener('click', function(e) {
         if (e.target.classList.contains('js-remove')) {
             const id = e.target.dataset.id;
+            const _csrf = e.target.dataset.csrf;
 
-            fetch('/cart/remove/' + id, {method: 'DELETE'}).then(function(res) {
+            fetch('/cart/remove/' + id,
+                {
+                    method: 'DELETE',
+                    headers: {
+                        'X-XSRF-TOKEN': _csrf
+                    }
+                })
+            .then(function(res) {
                 return res.json();
             }).then(function(cart) {
                 if (cart.courses.length) {
@@ -48,3 +56,5 @@ if ($card) {
         }
     })
 }
+
+M.Tabs.init(document.querySelectorAll('.tabs'));

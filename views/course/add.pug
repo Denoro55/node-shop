@@ -3,21 +3,22 @@ extends ../layouts/index
 block content
     .container
         h3 Добавить курс
-            form.col.s12(action='/courses/add', method='post')
-                .row
-                    .input-field.col.s6
-                        input#first_name.validate(required='', name='title', type='text')
-                        label(for='first_name') Название курса
-                        span.helper-text(data-error='Введите название курса')
-                    .input-field.col.s6
-                        input#price.validate(required='', name='price', type='text')
-                        label(for='price') Цена курса
-                        span.helper-text(data-error='Введите цену курса')
-                .row
-                    .input-field.col.s12
-                        input#image.validate(required='', name='img', type='text')
-                        label(for='image') URL картинки
-                        span.helper-text(data-error='Введите URL картинки')
-                .row
-                    button.btn.btn-primary(type='submit') Добавить
+        form.col.s12(action='/courses/add', method='post')
+            input(type="hidden" name="_csrf" value=csrf)
+            .row
+                .input-field.col.s6
+                    input#first_name.validate(required='', name='title', type='text')
+                    label(for='first_name') Название курса
+                    span.helper-text(data-error='Введите название курса')
+                .input-field.col.s6
+                    input#price.validate(required='', name='price', type='text')
+                    label(for='price') Цена курса
+                    span.helper-text(data-error='Введите цену курса')
+            .row
+                .input-field.col.s12
+                    input#image.validate(required='', name='img', type='text')
+                    label(for='image') URL картинки
+                    span.helper-text(data-error='Введите URL картинки')
+            .row
+                button.btn.btn-primary(type='submit') Добавить
 

@@ -16,9 +16,11 @@ block content
                                 p.price #{course.price}
                             .card-action
                                 a(href=`/courses/${course.id}`) Открыть курс
-                                a(href=`/courses/${course.id}/edit/?allow=true`) Редактировать
-                                form.mt-2(action='/cart/add', method='POST')
-                                    input(type='hidden', name='id', value=course.id)
-                                    button.btn.btn-success(type='submit') Купить
+                                if (isAuth)
+                                    a(href=`/courses/${course.id}/edit/?allow=true`) Редактировать
+                                    form.mt-2(action='/cart/add', method='POST')
+                                        input(type="hidden" name="_csrf" value=csrf)
+                                        input(type='hidden', name='id', value=course.id)
+                                        button.btn.btn-success(type='submit') Купить
         else
             p Курсов пока нет

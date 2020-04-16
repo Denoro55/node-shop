@@ -6,9 +6,17 @@ nav
                 var items = [
                 {name: 'Главная', link: '/', id: 'index'},
                 {name: 'Курсы', link: '/courses', id: 'courses'},
-                {name: 'Добавить курс', link: '/courses/add', id: 'add-course'},
-                {name: 'Корзина', link: '/cart', id: 'cart'},
-                {name: 'Заказы', link: '/orders', id: 'orders'}]
+                {name: 'Добавить курс', link: '/courses/add', id: 'add-course', auth: true},
+                {name: 'Корзина', link: '/cart', id: 'cart', auth: true},
+                {name: 'Заказы', link: '/orders', id: 'orders', auth: true}]
             each i in items
-                li(class=i.id===name?'active':null)
-                    a(href=`${i.link}`) #{i.name}
+                if (!i.auth || i.auth && isAuth)
+                    li(class=i.id===name?'active':null)
+                        a(href=`${i.link}`) #{i.name}
+
+            if (!isAuth)
+                li(class='auth' === name ? 'active' : null)
+                    a(href='/auth#login') Войти
+            else
+                li
+                    a(href='/auth/logout') Выйти

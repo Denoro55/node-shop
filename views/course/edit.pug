@@ -2,29 +2,33 @@ extends ../layouts/index
 
 block content
     .container
-        h3 Редактировать курс
-        form.col.s12(action='/courses/edit', method='post')
-            .row
-                .input-field.col.s6
-                    input#first_name.validate(required='', name='title', type='text', value=course.title)
-                    label(for='first_name') Название курса
-                    span.helper-text(data-error='Введите название курса')
-                .input-field.col.s6
-                    input#price.validate(required='', name='price', type='text', value=course.price)
-                    label(for='price') Цена курса
-                    span.helper-text(data-error='Введите цену курса')
-            .row
-                .input-field.col.s12
-                    input#image.validate(required='', name='img', type='text', value=course.img)
-                    label(for='image') URL картинки
-                    span.helper-text(data-error='Введите URL картинки')
-            .row
-                input(type="hidden" name="_csrf" value=csrf)
-                input(type='hidden', name='id', value=course.id)
-                button.btn.btn-primary(type='submit') Редактировать
+        .row
+            .col.s12
+                h3.mb-8 Редактировать курс
+                form(action='/courses/edit', method='post')
 
-        form(action="/courses/remove" method="POST").col.s12
-            .row
-                input(type="hidden" name="_csrf" value=csrf)
-                input(type='hidden', name='id', value=course.id)
-                button.btn.red(type='submit') Удалить курс
+                    .input-field
+                        input#first_name.validate(required='', name='title', type='text', value=course.title)
+                        label(for='first_name') Название курса
+                        span.helper-text(data-error='Введите название курса')
+
+                    .input-field
+                        input#price.validate(required='', name='price', type='text', value=course.price)
+                        label(for='price') Цена курса
+                        span.helper-text(data-error='Введите цену курса')
+
+                    .input-field
+                        input#image.validate(required='', name='img', type='text', value=course.img)
+                        label(for='image') URL картинки
+                        span.helper-text(data-error='Введите URL картинки')
+
+                    input(type="hidden" name="_csrf" value=csrf)
+                    input(type='hidden', name='id', value=course.id)
+                    button.btn.btn-primary(type='submit') Редактировать
+
+        .row
+            .col.s12
+                form(action="/courses/remove" method="POST")
+                    input(type="hidden" name="_csrf" value=csrf)
+                    input(type='hidden', name='id', value=course.id)
+                    button.btn.red(type='submit') Удалить курс

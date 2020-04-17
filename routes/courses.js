@@ -3,20 +3,24 @@ const router = Router();
 const Course = require('../models/Course');
 const auth = require('../middleware/auth');
 
+function isOwnerCourse(course, req) {
+    return course.userId.toString() === req.user._id.toString();
+}
+
 router.get('/', async (req, res) => {
     // const courses = await Course.find().populate('userId', 'name').select('title');
-    const courses = await Course.find();
-    const c = new Course({
-        title: 'Course',
-        price: 1000
-    });
-    console.log(c.toClient());
 
-    res.render('courses', {
-        title: 'Курсы',
-        name: 'courses',
-        courses
-    });
+    try {
+        const courses = await Course.find();
+        res.render('courses', {
+            title: 'Курсы',
+            name: 'courses',
+            userId: req.user ? req.user._id : null,
+            courses
+        });
+    } catch (e) {
+        console.log(e)
+    }
 });
 
 router.get('/add', auth, (req, res) => {
@@ -27,48 +31,78 @@ router.get('/add', auth, (req, res) => {
 });
 
 router.post('/add', auth, async (req, res) => {
-    const {title, price, img} = req.body;
-    const course = new Course({title, price, img, userId: req.user});
     try {
+        const {title, price, img} = req.body;
+        const course = new Course({title, price, img, userId: req.user});
         await course.save();
+        res.redirect('/courses');
     } catch (e) {
         console.log(e);
     }
-    res.redirect('/courses');
 });
 
 router.get('/:id', async (req, res) => {
-    const course = await Course.findById(req.params.id);
+    try {
+        const course = await Course.findById(req.params.id);
 
-    res.render('course/index', {
-        layout: 'empty',
-        course
-    });
+        res.render('course/index', {
+            layout: 'empty',
+            course
+        });
+    } catch (e) {
+        console.log(e);
+    }
 });
 
 router.get('/:id/edit', auth, async (req, res) => {
-    if (!req.query.allow) {
-        return res.redirect('/courses');
+    // if (!req.query.allow) {
+    //     return res.redirect('/courses');
+    // }
+
+    try {
+        const course = await Course.findById(req.params.id);
+        if (!isOwnerCourse(course, req)) {
+            return res.redirect('/courses');
+        }
+
+        res.render('course/edit', {
+            course
+        });
+    } catch (e) {
+        console.log(e);
     }
-
-    const course = await Course.findById(req.params.id);
-
-    res.render('course/edit', {
-        course
-    });
 });
 
 router.post('/edit', auth, async (req, res) => {
-    const id = req.body.id;
-    delete req.body.id;
-    await Course.findByIdAndUpdate(id, req.body);
-    res.redirect('/courses');
+    try {
+        const id = req.body.id;
+        delete req.body.id;
+
+        const course = await Course.findById(id);
+        if (!isOwnerCourse(course, req)) {
+            return res.redirect('/courses');
+        }
+
+        Object.assign(course, req.body);
+        await course.save();
+
+        res.redirect('/courses');
+    } catch (e) {
+        console.log(e);
+    }
 });
 
 router.post('/remove', auth, async (req, res) => {
-    const id = req.body.id;
-    await Course.deleteOne({_id: id});
-    res.redirect('/courses');
+    try {
+        const id = req.body.id;
+        await Course.deleteOne({
+            _id: id,
+            userId: req.user._id
+        });
+        res.redirect('/courses');
+    } catch (e) {
+        console.log(e);
+    }
 });
 
 module.exports = router;

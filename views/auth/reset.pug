@@ -1,0 +1,18 @@
+extends ../layouts/index
+
+block content
+    .container
+        .auth
+            .row
+                .col.s6.offset-s3
+                    if (error.length)
+                        .card-panel.red.white-text #{error}
+                    h3.mb-6 Забыли пароль?
+                    form(action='/auth/reset', method='POST')
+                        input(type="hidden" name="_csrf" value=csrf)
+                        .input-field
+                            input#email.validate(required='', name='email', type='text')
+                            label(for='email') Email
+                            span.helper-text(data-error='Введите email')
+                        div
+                            button.btn.btn-primary(type='submit') Восстановить пароль

@@ -17,8 +17,9 @@ block content
                             .card-action
                                 a(href=`/courses/${course.id}`) Открыть курс
                                 if (isAuth)
-                                    a(href=`/courses/${course.id}/edit/?allow=true`) Редактировать
-                                    form.mt-2(action='/cart/add', method='POST')
+                                    if (userId.toString() === course.userId.toString())
+                                        a(href=`/courses/${course.id}/edit`) Редактировать
+                                    form.mt-3(action='/cart/add', method='POST')
                                         input(type="hidden" name="_csrf" value=csrf)
                                         input(type='hidden', name='id', value=course.id)
                                         button.btn.btn-success(type='submit') Купить

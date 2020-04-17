@@ -4,6 +4,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
+const keys = require('./keys');
 
 // const exphbs = require('express-handlebars');
 
@@ -21,12 +22,9 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-const password = 'MELCWnjndlxWxV0Y';
-const MONGODB_URI = `mongodb+srv://Denis:${password}@denis-ikstw.mongodb.net/shop`;
-
 const store = new MongoStore({
     collection: 'sessions',
-    uri: MONGODB_URI
+    uri: keys.MONGODB_URI
 });
 
 // const hbs = exphbs.create({
@@ -41,22 +39,10 @@ app.set('view engine', 'pug');
 // папка шаблонов
 app.set('views', 'views');
 
-// app.use(async (req, res, next) => {
-//     try {
-//         const user = await User.findById('5e936388008e7b1b789f3c95');
-//         if (user) {
-//             req.user = user;
-//         }
-//         next();
-//     } catch (e) {
-//         console.log(e)
-//     }
-// });
-
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({extended: true}));
 app.use(session({
-    secret: 'keyboard cat',
+    secret: keys.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store
@@ -81,7 +67,7 @@ const PORT = process.env.PORT || 3000;
 
 async function connectToDb() {
     try {
-        await mongoose.connect(MONGODB_URI, {
+        await mongoose.connect(keys.MONGODB_URI, {
             useNewUrlParser: true,
             useFindAndModify: false
         });

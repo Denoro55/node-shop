@@ -9,8 +9,6 @@ const {registerValidators} = require('../utils/validators');
 
 const {user, pass} = require('../config');
 
-console.log(user, pass);
-
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {user, pass}

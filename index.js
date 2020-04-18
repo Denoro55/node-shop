@@ -5,6 +5,9 @@ const MongoStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
 const keys = require('./keys');
+const compression = require('compression');
+
+const helmet = require('helmet');
 
 // const exphbs = require('express-handlebars');
 
@@ -56,6 +59,8 @@ app.use(csrf());
 app.use(flash());
 app.use(variablesMiddleware);
 app.use(userMiddleware);
+app.use(helmet());
+app.use(compression());
 
 app.use('/', homeRoutes);
 app.use('/courses', courseRoutes);

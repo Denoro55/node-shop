@@ -2,3 +2,4 @@ node_modules
 .idea
 private
 images
+keys/keys.dev.js

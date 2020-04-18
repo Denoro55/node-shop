@@ -5,7 +5,11 @@ block content
         .row
             .col.s12
                 h3.mb-8 Редактировать курс
-                form(action='/courses/edit', method='post')
+
+                if (error)
+                    .card-panel.red.white-text.mb-7 #{error}
+
+                form(action='/courses/edit', method='post' novalidate)
 
                     .input-field
                         input#first_name.validate(required='', name='title', type='text', value=course.title)

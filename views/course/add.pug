@@ -2,23 +2,30 @@ extends ../layouts/index
 
 block content
     .container
-        h3 Добавить курс
-        form.col.s12(action='/courses/add', method='post')
-            input(type="hidden" name="_csrf" value=csrf)
-            .row
-                .input-field.col.s6
-                    input#first_name.validate(required='', name='title', type='text')
-                    label(for='first_name') Название курса
-                    span.helper-text(data-error='Введите название курса')
-                .input-field.col.s6
-                    input#price.validate(required='', name='price', type='text')
-                    label(for='price') Цена курса
-                    span.helper-text(data-error='Введите цену курса')
-            .row
-                .input-field.col.s12
-                    input#image.validate(required='', name='img', type='text')
-                    label(for='image') URL картинки
-                    span.helper-text(data-error='Введите URL картинки')
-            .row
-                button.btn.btn-primary(type='submit') Добавить
+        .row
+            .col.s6.offset-s3
+                h3.mb-8 Добавить курс
+
+                if (error)
+                    .card-panel.red.white-text.mb-7 #{error}
+
+                form(action='/courses/add', method='post' novalidate)
+                    input(type="hidden" name="_csrf" value=csrf)
+
+                    .input-field
+                        input#first_name.validate(required='', name='title', type='text' value=data.title)
+                        label(for='first_name') Название курса
+                        span.helper-text(data-error='Введите название курса')
+
+                    .input-field
+                        input#price.validate(required='', name='price', type='text' value=data.price)
+                        label(for='price') Цена курса
+                        span.helper-text(data-error='Введите цену курса')
+
+                    .input-field
+                        input#image.validate(required='', name='img', type='text' value=data.img)
+                        label(for='image') URL картинки
+                        span.helper-text(data-error='Введите URL картинки')
+
+                    button.btn.btn-primary(type='submit') Добавить
 

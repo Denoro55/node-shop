@@ -1,0 +1,30 @@
+extends ./layouts/index
+
+block content
+    .container
+        h3.mb-8 Профиль
+
+        .row
+            .col.s6
+                if (user.avatarUrl)
+                    img(src=`/${user.avatarUrl}` alt="")
+                else
+                    p Аватара нет
+            .col.s6
+                p.mb-6 Ваш email: <strong> #{user.email}</strong>
+                form(action='/profile', method='POST' enctype="multipart/form-data")
+                    input(type="hidden" name="_csrf" value=csrf)
+
+                    .input-field
+                        input#name.validate(required='', name='name', type='text', value=user.name)
+                        label(for='name') Ваше имя
+
+                    .file-field.input-field
+                        .btn
+                            span Изображение
+                            input(type='file' name="avatar")
+                        .file-path-wrapper
+                            input.file-path.validate(type='text')
+
+
+                    button.btn.btn-success(type='submit') Изменить

@@ -11,12 +11,15 @@ const keys = require('./keys');
 // middleware
 const variablesMiddleware = require('./middleware/variables');
 const userMiddleware = require('./middleware/user');
+const error404 = require('./middleware/error404');
+const fileMiddleware = require('./middleware/file');
 
 const homeRoutes = require('./routes/home');
 const courseRoutes = require('./routes/courses');
 const cardRoutes = require('./routes/cart');
 const orderRoutes = require('./routes/orders');
 const authRoutes = require('./routes/auth');
+const profileRoutes = require('./routes/profile');
 
 const mongoose = require('mongoose');
 
@@ -40,6 +43,7 @@ app.set('view engine', 'pug');
 app.set('views', 'views');
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(express.urlencoded({extended: true}));
 app.use(session({
     secret: keys.SESSION_SECRET,
@@ -47,6 +51,7 @@ app.use(session({
     saveUninitialized: false,
     store
 }));
+app.use(fileMiddleware.single('avatar'));
 app.use(csrf());
 app.use(flash());
 app.use(variablesMiddleware);
@@ -57,11 +62,9 @@ app.use('/courses', courseRoutes);
 app.use('/cart', cardRoutes);
 app.use('/orders', orderRoutes);
 app.use('/auth', authRoutes);
+app.use('/profile', profileRoutes);
 
-app.use((req, res, next) => {
-    console.log('middleware');
-    next();
-});
+app.use(error404);
 
 const PORT = process.env.PORT || 3000;
 
@@ -71,17 +74,6 @@ async function connectToDb() {
             useNewUrlParser: true,
             useFindAndModify: false
         });
-        // const user = await User.findOne();
-        // if (!user) {
-        //     const newUser = new User({
-        //         name: 'Den',
-        //         email: 'denis.chertenko@mail.ru',
-        //         cart: {
-        //             items: []
-        //         }
-        //     });
-        //     await newUser.save();
-        // }
         app.listen(PORT, () => {
             console.log('server is listening on port ', PORT)
         });

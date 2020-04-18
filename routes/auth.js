@@ -4,6 +4,8 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const nodemailer = require("nodemailer");
+const {validationResult} = require('express-validator');
+const {registerValidators} = require('../utils/validators');
 
 const {user, pass} = require('../private');
 
@@ -81,24 +83,27 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.post('/register', async (req, res) => {
-    const {name, email, password, repeat} = req.body;
-    const isExists = await User.findOne({ email });
-    if (isExists) {
-        req.flash('error', 'Пользователя с таким email не существует');
-        return res.redirect('/auth/login#register');
-    } else {
-        const hashPassword = await bcrypt.hash(password, 10);
-        const user = new User({name, email, password: hashPassword});
-        await user.save();
-        res.redirect('/auth/login#login');
-        await transporter.sendMail(regMail(), function (err, info) {
-            if(err)
-                console.log(err);
-            else
-                console.log(info);
+router.post('/register', registerValidators, async (req, res) => {
+    const {name, email, password} = req.body;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        req.flash('error', errors.array()[0].msg);
+        return req.session.save(() => {
+            res.status(422).redirect('/auth/login#register');
         });
     }
+
+    const hashPassword = await bcrypt.hash(password, 10);
+    const user = new User({name, email, password: hashPassword});
+    await user.save();
+    res.redirect('/auth/login#login');
+    await transporter.sendMail(regMail(), function (err, info) {
+        if(err)
+            console.log(err);
+        else
+            console.log(info);
+    });
 });
 
 router.post('/reset', (req, res) => {

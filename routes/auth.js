@@ -7,7 +7,7 @@ const nodemailer = require("nodemailer");
 const {validationResult} = require('express-validator');
 const {registerValidators} = require('../utils/validators');
 
-const {user, pass} = require('../private');
+const {user, pass} = require('../config');
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',

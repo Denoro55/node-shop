@@ -3,3 +3,4 @@ node_modules
 private
 images
 keys/keys.dev.js
+config/config.dev.js

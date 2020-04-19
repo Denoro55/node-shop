@@ -44,13 +44,14 @@ if ($card) {
                 if (cart.courses.length) {
                     const items = cart.courses.map(course => {
                         return `
-                            <tr><td>${course.title}</td><td>${course.count}</td><td><div class="btn btn-primary js-remove" data-id=${course.id}>Удалить</div></td></tr>
+                            <tr><td>${course.title}</td><td>${course.count}</td><td><div class="btn btn-primary js-remove" data-csrf=${_csrf} data-id=${course.id}>Удалить</div></td></tr>
                         `
                     }).join('');
                     $card.querySelector('tbody').innerHTML = items;
                     $card.querySelector('.price').innerHTML =  toCurrency(cart.totalPrice);
                 } else {
-                    $card.innerHTML = `<p>В корзине пока пусто</p>`
+                    $card.innerHTML = `<p>В корзине пока пусто</p>`;
+                    document.querySelector('.form-make-order').remove();
                 }
             })
         }

@@ -4,6 +4,12 @@
 .nav-wrapper {
   padding: 0 20px; }
 
+nav {
+  background-color: #2196f3; }
+
+nav .brand-logo {
+  font-size: 24px; }
+
 .price {
   font-size: 20px;
   font-weight: bold; }
@@ -100,5 +106,16 @@ img {
 
 .auth {
   padding-top: 20px; }
+
+.card-image {
+  height: 205px;
+  overflow: hidden; }
+  .card-image img {
+    width: auto !important;
+    margin: 0 auto;
+    max-height: 100%; }
+
+.hidden {
+  display: none; }
 
 /*# sourceMappingURL=style.css.map */

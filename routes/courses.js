@@ -63,6 +63,7 @@ router.get('/:id', async (req, res) => {
 
         res.render('course/index', {
             layout: 'empty',
+            name: 'courses',
             course
         });
     } catch (e) {
@@ -82,7 +83,8 @@ router.get('/:id/edit', auth, async (req, res) => {
         }
 
         res.render('course/edit', {
-            course
+            course,
+            name: 'courses'
         });
     } catch (e) {
         console.log(e);

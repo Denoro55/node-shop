@@ -31,7 +31,7 @@ block content
                             button.btn.btn-primary(type='submit') Войти
                 #register.col.s6.offset-s3
                     h3.mb-6 Регистрация
-                    form(action='/auth/register', method='post' novalidate)
+                    form(action='/auth/register', method='post')
                         input(type="hidden" name="_csrf" value=csrf)
                         .input-field
                             input#r_name.validate(required='', name='name', type='text')

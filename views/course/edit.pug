@@ -9,7 +9,7 @@ block content
                 if (error)
                     .card-panel.red.white-text.mb-7 #{error}
 
-                form(action='/courses/edit', method='post' novalidate)
+                form(action='/courses/edit', method='post')
 
                     .input-field
                         input#first_name.validate(required='', name='title', type='text', value=course.title)

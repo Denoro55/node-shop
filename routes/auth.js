@@ -76,10 +76,15 @@ router.post('/login', async (req, res) => {
             })
         } else {
             req.flash('error', 'Пароль неверный');
-            res.redirect('/auth/login#login');
+            req.session.save((err) => {
+                res.redirect('/auth/login#login');
+            })
         }
     } else {
-        res.redirect('/auth/login#login');
+        req.flash('error', 'Такого пользователя не существует');
+        req.session.save((err) => {
+            res.redirect('/auth/login#login');
+        })
     }
 });
 
@@ -98,7 +103,7 @@ router.post('/register', registerValidators, async (req, res) => {
     const user = new User({name, email, password: hashPassword});
     await user.save();
     res.redirect('/auth/login#login');
-    await transporter.sendMail(regMail(), function (err, info) {
+    await transporter.sendMail(regMail(email), function (err, info) {
         if(err)
             console.log(err);
         else

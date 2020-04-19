@@ -3,7 +3,7 @@ const keys = require('../keys');
 module.exports = function(to) {
     return {
         from: keys.EMAIL_FORM,
-        to: 'denis.chertenko@mail.ru',
+        to: to,
         subject: 'Аккаунт создан',
         html: `
             <h3>Поздравляем!</h3>

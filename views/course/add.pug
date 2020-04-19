@@ -9,7 +9,7 @@ block content
                 if (error)
                     .card-panel.red.white-text.mb-7 #{error}
 
-                form(action='/courses/add', method='post' novalidate)
+                form(action='/courses/add', method='post')
                     input(type="hidden" name="_csrf" value=csrf)
 
                     .input-field

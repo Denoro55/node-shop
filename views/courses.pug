@@ -22,6 +22,6 @@ block content
                                     form.mt-3(action='/cart/add', method='POST')
                                         input(type="hidden" name="_csrf" value=csrf)
                                         input(type='hidden', name='id', value=course.id)
-                                        button.btn.btn-success(type='submit') Купить
+                                        button.btn.btn-success(type='submit') В корзину
         else
             p Курсов пока нет
